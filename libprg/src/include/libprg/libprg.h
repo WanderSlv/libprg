@@ -13,6 +13,15 @@ result_t sub(double a, double b);
 result_t sum(double a, double b);
 result_t compute(double a, double b, operation_t op);
 
+//Pilha
+void pilha(void);
+typedef struct pilha pilha_t;
+
+pilha_t* criarPilha(int capacidade);
+int empilhar(pilha_t *pilha, int valor);
+int tamanho(pilha_t* pilha);
+
+
 //Fila
 // Declaração da estrutura e do tipo fila_t
 typedef struct fila {

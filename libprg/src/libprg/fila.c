@@ -2,12 +2,11 @@
 #include <stdbool.h>
 #include "libprg/libprg.h"
 
-// A definição de 'typedef struct fila' foi REMOVIDA daqui.
 
 // criar fila
 fila_t* criar_fila(int capacidade) {
     fila_t* f = malloc(sizeof(fila_t));
-    f->elementos = malloc(sizeof(int) * capacidade); // Faltava alocar o vetor!
+    f->elementos = malloc(sizeof(int) * capacidade);
     f->inicio = 0;
     f->fim = 0;
     f->tamanho = 0;
