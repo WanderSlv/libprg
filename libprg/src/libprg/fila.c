@@ -1,6 +1,6 @@
 #include <stdlib.h>
-#include <libprg/libprg.h>
 #include <stdbool.h>
+#include "libprg/libprg.h"
 
 typedef struct fila {
     int* elementos;
