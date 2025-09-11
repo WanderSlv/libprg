@@ -9,7 +9,7 @@ typedef struct fila {
 
 // criar fila
 
-fila_t* criar_fila(int capacidade) {
+fila_t *criar_fila(int capacidade) {
 
     fila_t* f = malloc(sizeof(fila_t));
     f->inicio = 0;
