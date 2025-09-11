@@ -2,49 +2,36 @@
 #include <stdbool.h>
 #include "libprg/libprg.h"
 
-typedef struct fila {
-    int* elementos;
-    int tamanho, inicio, fim, capacidade;
-} fila_t;
+// A definição de 'typedef struct fila' foi REMOVIDA daqui.
 
 // criar fila
-
-fila_t *criar_fila(int capacidade) {
-
+fila_t* criar_fila(int capacidade) {
     fila_t* f = malloc(sizeof(fila_t));
+    f->elementos = malloc(sizeof(int) * capacidade); // Faltava alocar o vetor!
     f->inicio = 0;
     f->fim = 0;
     f->tamanho = 0;
     f->capacidade = capacidade;
-
     return f;
 }
 
 // enfileirar
-
 void enfileirar(fila_t* fila, int valor) {
-    fila->elementos[fila->fim] = valor;
-    fila -> fim++;
+    if (!cheia(fila)) { // verifica se a fila esta
+        fila->elementos[fila->fim] = valor;
+        fila->fim = (fila->fim + 1) % fila->capacidade; // Fila circular é mais segura
+        fila->tamanho++;
+    }
 }
 
 //cheia
 bool cheia(fila_t* fila) {
-    if (fila->tamanho >= fila->capacidade) {
-        return true;
-    } else {
-        return false;
-    }
+    return fila->tamanho == fila->capacidade;
 }
 
 // vazia
 bool vazia(fila_t* fila) {
-    if (fila->tamanho == 0) {
-        return true;
-    }
+    return fila->tamanho == 0;
 }
 
-// desenfileirar
-// inicio
-// fim
-// tamanho
-// destruir
+// next funcions

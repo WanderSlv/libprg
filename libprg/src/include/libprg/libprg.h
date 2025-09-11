@@ -13,8 +13,16 @@ result_t sum(double a, double b);
 result_t compute(double a, double b, operation_t op);
 
 //Fila
-typedef struct fila fila_t;
+// Declaração da estrutura e do tipo fila_t
+typedef struct fila {
+    int* elementos;
+    int tamanho, inicio, fim, capacidade;
+} fila_t;
+
+// Declaração (protótipos) das funções
 fila_t* criar_fila(int capacidade);
 void enfileirar(fila_t* fila, int valor);
+bool cheia(fila_t* fila);
+bool vazia(fila_t* fila);
 
 #endif
