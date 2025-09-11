@@ -12,4 +12,9 @@ result_t sub(double a, double b);
 result_t sum(double a, double b);
 result_t compute(double a, double b, operation_t op);
 
+//Fila
+typedef struct fila fila_t;
+fila_t* criar_fila(int capacidade);
+void enfileirar(fila_t* fila, int valor);
+
 #endif
