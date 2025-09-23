@@ -24,6 +24,7 @@ typedef struct pilha {
 pilha_t* criarPilha(int capacidade);
 void pilha_cheia(pilha_t* pilha);
 int empilhar(pilha_t* pilha);
+int desempilha(pilha_t* pilha);
 int tamanho(pilha_t* pilha);
 void destruir(pilha_t* pilha);
 

@@ -64,6 +64,16 @@ int empilhar(pilha_t* pilha) {
     return 1;
 }
 
+int desempilha(pilha_t* pilha) {
+    if (pilha->topo == -1) {
+        printf("Pilha vazia, não é possível desempilhar.\n");
+        return -1; // ou outro valor que faça sentido
+    }
+    int valor = pilha->elementos[pilha->topo];
+    pilha->topo--;
+    return valor;
+}
+
 int tamanho(pilha_t* pilha) {
     return pilha->topo + 1;
 }
