@@ -1,19 +1,15 @@
-//
-// Created by wander on 11/09/2025.
-//
-
-//
-// Created by wander on 26/08/2025.
-//
 #include "libprg/libprg.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-    typedef struct pilha {
-        int* elementos;
-        int topo;
-        int capacidade;
+#define SIM 1
+#define NAO 2
+
+typedef struct pilha {
+    int* elementos;
+    int topo;
+    int capacidade;
     } pilha_t;
 
 
@@ -26,24 +22,58 @@ pilha_t* criarPilha(int capacidade) {
     return p;
 }
 
-int empilhar(pilha_t *pilha, int valor) {
+void pilha_cheia(pilha_t* pilha) {
+    if (pilha->topo == pilha->capacidade - 1){
+        printf("Sua pilha já está cheia :( \n");
+        printf("Quer alocar mais espaço na memoria para colocar um novo elemento?\n");
+        printf("Digite %d para SIM ou %d para NAO: ", SIM, NAO);
 
-    if (pilha->topo == (pilha->capacidade +1)) {
-        pilha->capacidade *= 2;
-        pilha->elementos = realloc(pilha->elementos, pilha->capacidade * sizeof(int));
-        // exit(EXIT_FAILURE);
+        int opcap;
+        scanf("%d", &opcap);
+
+        switch (opcap) {
+            case SIM:
+                printf("Certo, vamos alocar memoria!");
+                pilha->capacidade *= 2;
+                int* novo = realloc(pilha->elementos, pilha->capacidade * sizeof(int));
+                //verificando se houve erro ao realocar memeoria
+                if (novo == NULL) {
+                    printf("Erro alocar memoria!");
+                    exit(1);
+                }
+                pilha->elementos = novo;
+                break;
+
+            case NAO:
+                printf("Você optou por não aumentar a pilha.\n");
+                break;
+
+            default:
+                printf("Opção inválida.\n");
+                break;
+        }
     }
+}
+
+int empilhar(pilha_t* pilha) {
+
+    int valor;
+
+    if (pilha->topo == pilha->capacidade - 1) {
+        pilha_cheia(pilha);
+    }
+
+    printf("Digite o oque quer armazenar: ");
+    scanf("%d", &valor);
 
     pilha->topo++;
     pilha -> elementos[pilha->topo] = valor;
+    return 1;
 }
-
-
 
 int tamanho(pilha_t* pilha) {
     return pilha->topo + 1;
 }
-
 
 void destruir(pilha_t* pilha) {
     free(pilha->elementos);
