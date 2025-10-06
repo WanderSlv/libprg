@@ -22,11 +22,12 @@ typedef struct pilha {
 } pilha_t;
 
 pilha_t* criarPilha(pilha_t* pilha);
-void pilha_cheia(pilha_t* pilha);
+int pilha_cheia(pilha_t* pilha);
 int empilhar(pilha_t* pilha);
 int desempilha(pilha_t* pilha);
 int tamanho(pilha_t* pilha);
 void destruir(pilha_t* pilha);
+int topo(pilha_t* pilha);
 
 // ---------- Fila ----------
 typedef struct fila fila_t;
