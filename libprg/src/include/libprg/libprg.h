@@ -21,7 +21,7 @@ typedef struct pilha {
     int capacidade;
 } pilha_t;
 
-pilha_t* criarPilha(int capacidade);
+pilha_t* criarPilha(pilha_t* pilha);
 void pilha_cheia(pilha_t* pilha);
 int empilhar(pilha_t* pilha);
 int desempilha(pilha_t* pilha);

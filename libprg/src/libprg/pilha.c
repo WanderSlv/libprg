@@ -6,12 +6,16 @@
 #define SIM 1
 #define NAO 2
 
-pilha_t* criarPilha(int capacidade) {
-
+pilha_t* criarPilha(pilha_t* pilha) {
+    int capacidade;
+    printf("criando pilha\n");
+    printf("Você esta criando sua pilha!! Qual tamanho dela? ");
+    scanf("%d", &capacidade);
     pilha_t* p = malloc (sizeof(pilha_t));
     p->elementos = malloc(capacidade * sizeof(int));
     p->topo = -1;
     p->capacidade = capacidade;
+    printf("O tamanha da sua pilha é %d\n", capacidade);
     return p;
 }
 
@@ -20,13 +24,12 @@ void pilha_cheia(pilha_t* pilha) {
         printf("Sua pilha já está cheia :( \n");
         printf("Quer alocar mais espaço na memoria para colocar um novo elemento?\n");
         printf("Digite %d para SIM ou %d para NAO: ", SIM, NAO);
-
         int opcap;
         scanf("%d", &opcap);
 
         switch (opcap) {
             case SIM:
-                printf("Certo, vamos alocar memoria!");
+                printf("Certo, vamos alocar memoria!\n");
                 pilha->capacidade *= 2;
                 int* novo = realloc(pilha->elementos, pilha->capacidade * sizeof(int));
                 //verificando se houve erro ao realocar memeoria
