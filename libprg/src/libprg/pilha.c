@@ -78,6 +78,7 @@ int desempilha(pilha_t* pilha) {
 }
 
 int tamanho(pilha_t* pilha) {
+
     return pilha->topo + 1;
 }
 
