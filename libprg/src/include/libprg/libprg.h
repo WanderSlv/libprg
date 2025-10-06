@@ -39,4 +39,9 @@ bool vazia(fila_t* fila);
 // ---------- Lista Ordenada ----------
 typedef struct lista_ordenada lista_ordenada_t;
 
+
+// ---------- Lista Encadeada ----------
+typedef struct no no_t;
+no_t* crar_lista_encadeada(int valor);
+
 #endif
