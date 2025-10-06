@@ -15,11 +15,11 @@ pilha_t* criarPilha(pilha_t* pilha) {
     p->elementos = malloc(capacidade * sizeof(int));
     p->topo = -1;
     p->capacidade = capacidade;
-    printf("O tamanha da sua pilha é %d\n", capacidade);
+    printf("O tamanho da sua pilha é %d\n", capacidade);
     return p;
 }
 
-void pilha_cheia(pilha_t* pilha) {
+int pilha_cheia(pilha_t* pilha) {
     if (pilha->topo == pilha->capacidade - 1){
         printf("Sua pilha já está cheia :( \n");
         printf("Quer alocar mais espaço na memoria para colocar um novo elemento?\n");
@@ -32,45 +32,50 @@ void pilha_cheia(pilha_t* pilha) {
                 printf("Certo, vamos alocar memoria!\n");
                 pilha->capacidade *= 2;
                 int* novo = realloc(pilha->elementos, pilha->capacidade * sizeof(int));
-                //verificando se houve erro ao realocar memeoria
+                //verificando se houve erro ao realocar memoria
                 if (novo == NULL) {
-                    printf("Erro alocar memoria!");
-                    exit(1);
+                    printf("Erro ao alocar memoria!\n");
+                    return 0; // Falhou ao realocar
                 }
                 pilha->elementos = novo;
-                break;
+                printf("Pilha expandida! Nova capacidade: %d\n", pilha->capacidade);
+                return 1; // Sucesso
 
             case NAO:
                 printf("Você optou por não aumentar a pilha.\n");
-                break;
+                return 0; // Usuário recusou
 
             default:
                 printf("Opção inválida.\n");
-                break;
+                return 0; // Opção inválida
         }
     }
+    return 1; // Pilha não está cheia
 }
 
 int empilhar(pilha_t* pilha) {
-
     int valor;
 
     if (pilha->topo == pilha->capacidade - 1) {
-        pilha_cheia(pilha);
+        if (!pilha_cheia(pilha)) {
+            printf("Não foi possível empilhar. Pilha cheia!\n");
+            return 0; // Falhou ao empilhar
+        }
     }
 
-    printf("Digite o oque quer armazenar: ");
+    printf("Digite o que quer armazenar: ");
     scanf("%d", &valor);
 
     pilha->topo++;
-    pilha -> elementos[pilha->topo] = valor;
+    pilha->elementos[pilha->topo] = valor;
+    printf("Valor %d empilhado com sucesso!\n", valor);
     return 1;
 }
 
 int desempilha(pilha_t* pilha) {
     if (pilha->topo == -1) {
         printf("Pilha vazia, não é possível desempilhar.\n");
-        return -1; // ou outro valor que faça sentido
+        return -1;
     }
     int valor = pilha->elementos[pilha->topo];
     pilha->topo--;
@@ -82,6 +87,15 @@ int tamanho(pilha_t* pilha) {
 }
 
 void destruir(pilha_t* pilha) {
-    free(pilha->elementos);
-    free(pilha);
+    if (pilha != NULL) {
+        if (pilha->elementos != NULL) {
+            free(pilha->elementos);
+        }
+        free(pilha);
+    }
+}
+
+int topo(pilha_t* pilha) {
+    printf("Ultimo elemento da pilha é: %d", pilha->elementos[pilha->topo]);
+    return 0;
 }
