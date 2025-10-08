@@ -30,7 +30,13 @@ void destruir(pilha_t* pilha);
 int topo(pilha_t* pilha);
 
 // ---------- Fila ----------
-typedef struct fila fila_t;
+typedef struct fila {
+    int* elementos;
+    int inicio;
+    int fim;
+    int tamanho;
+    int capacidade;
+}fila_t;
 
 fila_t* criar_fila(int capacidade);
 void enfileirar(fila_t* fila, int valor);
