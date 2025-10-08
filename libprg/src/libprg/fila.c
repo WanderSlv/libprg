@@ -34,3 +34,12 @@
 // }
 
 // next funcions
+// Criar fila
+// Enfileirar
+// Desenfileorar
+// Ínicio
+// Fim
+// Tamanho
+// Vazia
+// Cheia
+// Destruir

@@ -6,11 +6,8 @@
 #define SIM 1
 #define NAO 2
 
-pilha_t* criarPilha(pilha_t* pilha) {
-    int capacidade;
-    printf("criando pilha\n");
-    printf("Você esta criando sua pilha!! Qual tamanho dela? ");
-    scanf("%d", &capacidade);
+
+pilha_t* criarPilha(pilha_t* pilha, int capacidade) {
     pilha_t* p = malloc (sizeof(pilha_t));
     p->elementos = malloc(capacidade * sizeof(int));
     p->topo = -1;
@@ -53,8 +50,7 @@ int pilha_cheia(pilha_t* pilha) {
     return 1; // Pilha não está cheia
 }
 
-int empilhar(pilha_t* pilha) {
-    int valor;
+int empilhar(pilha_t* pilha, int valor) {
 
     if (pilha->topo == pilha->capacidade - 1) {
         if (!pilha_cheia(pilha)) {
@@ -62,9 +58,6 @@ int empilhar(pilha_t* pilha) {
             return 0; // Falhou ao empilhar
         }
     }
-
-    printf("Digite o que quer armazenar: ");
-    scanf("%d", &valor);
 
     pilha->topo++;
     pilha->elementos[pilha->topo] = valor;
