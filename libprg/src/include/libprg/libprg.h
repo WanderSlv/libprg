@@ -57,15 +57,15 @@ typedef struct lista_linear {
 } lista_linear_t;
 
 lista_linear_t* criar_lista_linear(int capacidade, bool ordenada);
-void inserir_lista_linear(lista_linear_t* lista, int valor);
-int buscar_lista(lista_linear_t* lista, int valor);
-void remover_lista(lista_linear_t* lista, int valor);
-bool cheia_lista_linear(lista_linear_t* lista);
-bool vazia_lista_linear(lista_linear_t* lista);
-void destruir_lista_linear(lista_linear_t* lista);
-int tamanho_lista_linear(lista_linear_t* lista);
-int* elementos_lista_linear(lista_linear_t* lista);
-void imprimir_lista_linear(lista_linear_t* lista);
+void inserir_lista_linear(lista_linear_t* lista_linear, int valor);
+int buscar_lista(lista_linear_t* lista_linear, int valor);
+void remover_lista(lista_linear_t* lista_linear, int valor);
+bool cheia_lista_linear(lista_linear_t* lista_linear);
+bool vazia_lista_linear(lista_linear_t* lista_linear);
+void destruir_lista_linear(lista_linear_t* lista_linear);
+int tamanho_lista_linear(lista_linear_t* lista_linear);
+int* elementos_lista_linear(lista_linear_t* lista_linear);
+void imprimir_lista_linear(lista_linear_t* lista_linear);
 
 // ---------- Lista Ordenada ----------
 typedef struct lista_ordenada lista_ordenada_t;
