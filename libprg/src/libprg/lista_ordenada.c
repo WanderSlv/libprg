@@ -60,7 +60,7 @@ int buscar(lista_ordenada_t* lista, int valor) {
 }
 
 // Remover elemento
-void remover_elemento(lista_ordenada_t* lista, int valor) {
+void remover_elemento_ord(lista_ordenada_t* lista, int valor) {
     int pos = buscar(lista, valor);
     if (pos == -1) {
         printf("Elemento não encontrado!\n");
@@ -86,7 +86,7 @@ bool lista_vazia(lista_ordenada_t* lista) {
 }
 
 // Exibir todos os elementos
-void exibir_lista(lista_ordenada_t* lista) {
+void exibir_lista_ord(lista_ordenada_t* lista) {
     printf("[");
     for (int i = 0; i < lista->tamanho; i++) {
         printf("%d", lista->elementos[i]);

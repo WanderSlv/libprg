@@ -79,14 +79,14 @@ typedef struct {
 // ====== DECLARAÇÃO DAS FUNÇÕES ======
 lista_ordenada_t* criar_lista_ordenada(int capacidade, bool ordenada);
 void inserir(lista_ordenada_t* lista, int valor);
-void inserir_ordenada(lista_ordenada_t* lista, int valor);
+void remover_elemento_ord(lista_ordenada_t* lista, int valor);
 void inserir_nao_ordenada(lista_ordenada_t* lista, int valor);
 int buscar(lista_ordenada_t* lista, int valor);
 bool lista_vazia(lista_ordenada_t* lista);
 bool lista_cheia(lista_ordenada_t* lista);
 void remover_elemento(lista_ordenada_t* lista, int valor);
 void destruir_lista(lista_ordenada_t* lista);
-void exibir_lista(lista_ordenada_t* lista);
+void exibir_lista_ord(lista_ordenada_t* lista);
 
 
 // ---------- Lista Encadeada ----------
