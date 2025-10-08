@@ -5,6 +5,7 @@
 #include "libprg/libprg.h"
 
 void inserir_ordenada(lista_linear_t* lista_linear, int valor);
+void inserir_nao_ordenada(lista_linear_t* lista_linear, int valor);
 
 lista_linear_t* criar_lista_linear(int capacidade, bool ordenada) {
     lista_linear_t* lista_linear = malloc(sizeof(lista_linear_t));

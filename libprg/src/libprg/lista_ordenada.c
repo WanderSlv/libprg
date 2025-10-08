@@ -64,19 +64,21 @@ int buscar(lista_ordenada_t* lista, int valor) {
 }
 
 // Remover elemento
-bool remover_elemento_ord(lista_ordenada_t *lista, int valor) {
+bool remover_elemento_ord(lista_ordenada_t* lista, int valor) {
     int pos = buscar(lista, valor);
     if (pos == -1) {
         printf("Elemento não encontrado!\n");
-        return;
+        return false; // CORREÇÃO: Retorna 'false' quando não encontra
     }
 
+    // Desloca os elementos
     for (int i = pos; i < lista->tamanho - 1; i++) {
         lista->elementos[i] = lista->elementos[i + 1];
     }
 
     lista->tamanho--;
     printf("Elemento %d removido com sucesso!\n", valor);
+    return true; // CORREÇÃO: Retorna 'true' no sucesso
 }
 
 // Verifica se a lista está cheia
