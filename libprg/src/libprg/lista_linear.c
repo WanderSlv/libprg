@@ -1,9 +1,10 @@
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
+
 #include "libprg/libprg.h"
 
 void inserir_ordenada(lista_linear_t* lista_linear, int valor);
-void inserir_nao_ordenada(lista_linear_t* lista_linear, int valor);
 
 lista_linear_t* criar_lista_linear(int capacidade, bool ordenada) {
     lista_linear_t* lista_linear = malloc(sizeof(lista_linear_t));
@@ -97,4 +98,30 @@ void destruir_lista_linear(lista_linear_t* lista) {
         }
         free(lista);
     }
+}
+
+bool remover_lista_linear(lista_linear_t* lista, int valor) {
+    int pos = buscar_lista(lista, valor);
+    if (pos == -1) {
+        return false; // Elemento não encontrado
+    }
+
+    // Desloca os elementos da direita para a esquerda
+    for (int i = pos; i < lista->tamanho - 1; i++) {
+        lista->elementos[i] = lista->elementos[i + 1];
+    }
+
+    lista->tamanho--;
+    return true;
+}
+
+void imprimir_lista_linear(lista_linear_t* lista) {
+    printf("[");
+    for (int i = 0; i < lista->tamanho; i++) {
+        printf("%d", lista->elementos[i]);
+        if (i < lista->tamanho - 1) {
+            printf(", ");
+        }
+    }
+    printf("]\n");
 }

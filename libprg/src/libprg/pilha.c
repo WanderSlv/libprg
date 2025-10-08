@@ -7,12 +7,12 @@
 #define NAO 2
 
 
-pilha_t* criarPilha(pilha_t* pilha, int capacidade) {
-    pilha_t* p = malloc (sizeof(pilha_t));
+pilha_t* criarPilha(int capacidade) {
+    pilha_t* p = malloc(sizeof(pilha_t));
     p->elementos = malloc(capacidade * sizeof(int));
     p->topo = -1;
     p->capacidade = capacidade;
-    printf("O tamanho da sua pilha é %d\n", capacidade);
+    printf("Pilha com capacidade %d criada.\n", capacidade);
     return p;
 }
 
@@ -76,7 +76,6 @@ int desempilha(pilha_t* pilha) {
 }
 
 int tamanho(pilha_t* pilha) {
-
     return pilha->topo + 1;
 }
 
@@ -90,6 +89,8 @@ void destruir(pilha_t* pilha) {
 }
 
 int topo(pilha_t* pilha) {
-    printf("Ultimo elemento da pilha é: %d", pilha->elementos[pilha->topo]);
-    return 0;
+    if (pilha->topo == -1) {
+        return -1; // Erro, pilha vazia
+    }
+    return pilha->elementos[pilha->topo];
 }

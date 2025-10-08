@@ -14,6 +14,10 @@ lista_ordenada_t* criar_lista_ordenada(int capacidade, bool ordenada) {
     return lista;
 }
 
+void inserir_ordenada(lista_ordenada_t * lista, int valor);
+
+void inserir_nao_ordenada(lista_ordenada_t * lista, int valor);
+
 // Inserir elemento (decide se é ordenada ou não)
 void inserir(lista_ordenada_t* lista, int valor) {
     if (lista_cheia(lista)) {
@@ -60,7 +64,7 @@ int buscar(lista_ordenada_t* lista, int valor) {
 }
 
 // Remover elemento
-void remover_elemento_ord(lista_ordenada_t* lista, int valor) {
+bool remover_elemento_ord(lista_ordenada_t *lista, int valor) {
     int pos = buscar(lista, valor);
     if (pos == -1) {
         printf("Elemento não encontrado!\n");
@@ -96,8 +100,7 @@ void exibir_lista_ord(lista_ordenada_t* lista) {
     printf("]\n");
 }
 
-// Destruir lista e liberar memória
-void destruir_lista(lista_ordenada_t* lista) {
+void destruir_lista_ordenada(lista_ordenada_t* lista) { // Renomeada
     if (lista != NULL) {
         if (lista->elementos != NULL) {
             free(lista->elementos);
