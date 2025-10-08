@@ -42,6 +42,11 @@ fila_t* criar_fila(int capacidade);
 void enfileirar(fila_t* fila, int valor);
 bool cheia(fila_t* fila);
 bool vazia(fila_t* fila);
+int desenfileirar(fila_t* fila);
+int tamanho_fila(fila_t* fila);
+int inicio_fila(fila_t* fila);
+int fim_fila(fila_t* fila);
+void destruir_fila(fila_t* fila);
 
 // ---------- Lista Ordenada ----------
 typedef struct lista_ordenada lista_ordenada_t;
