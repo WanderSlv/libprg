@@ -1,18 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "libprg/libprg.h"
 
-//criar a lista
 
-typedef struct lista_ordenada {
-    int tamanho;
-    int* elementos;
-    int capacidade;
-    int posicao;
-    bool ordenada;
-}lista_ordenada_t;
-
-lista_ordenada_t* criarListaLinear(int capacidade) {
+// Criar lista
+lista_ordenada_t* criar_lista_ordenada(int capacidade, bool ordenada) {
     lista_ordenada_t* lista = malloc(sizeof(lista_ordenada_t));
     lista->elementos = malloc(capacidade * sizeof(int));
     lista->capacidade = capacidade;
@@ -21,61 +14,94 @@ lista_ordenada_t* criarListaLinear(int capacidade) {
     return lista;
 }
 
-//inserir não ordendada
-void inserir_nao_ordendada(int valor, lista_ordenada_t* lista) {
-    if (lista->tamanho >= lista->capacidade) {
-        printf("Lista cheia!");
-        return;
-    }
-    lista->elementos[lista->tamanho] = valor;
-    lista->tamanho++;
-}
-
-//inserir ordenada
-void inserir_ordendada(int valor, lista_ordenada_t* lista) {
-    if (lista->tamanho >= lista->capacidade) {
-        printf("Lista cheia!");
-        return;
-    }
-    for (int i = lista->tamanho; -i > 0; --i) {
-        if (lista->elementos[i] < valor) {
-            break;
-        }
-            lista->elementos[i + 1] = lista->elementos[i];
-        }
-    lista->tamanho++;
-    }
-
-
-// Inserir
-void inserir(int elemento, lista_ordenada_t* lista) {
-
+// Inserir elemento (decide se é ordenada ou não)
+void inserir(lista_ordenada_t* lista, int valor) {
     if (lista_cheia(lista)) {
+        printf("Lista cheia!\n");
         return;
     }
 
     if (lista->ordenada) {
-    }else {
-    inserir_nao_ordendada(elemento, lista);
+        inserir_ordenada(lista, valor);
+    } else {
+        inserir_nao_ordenada(lista, valor);
     }
 }
 
-// Buscar
+// Inserção não ordenada (coloca no final)
+void inserir_nao_ordenada(lista_ordenada_t* lista, int valor) {
+    lista->elementos[lista->tamanho] = valor;
+    lista->tamanho++;
+}
+
+// Inserção ordenada (mantém ordem crescente)
+void inserir_ordenada(lista_ordenada_t* lista, int valor) {
+    int i = lista->tamanho - 1;
+
+    // desloca elementos maiores que "valor" para a direita
+    while (i >= 0 && lista->elementos[i] > valor) {
+        lista->elementos[i + 1] = lista->elementos[i];
+        i--;
+    }
+
+    // insere o valor na posição correta
+    lista->elementos[i + 1] = valor;
+    lista->tamanho++;
+}
+
+// Buscar elemento
 int buscar(lista_ordenada_t* lista, int valor) {
-    int i = 0;
-    while ( i < lista->tamanho) {
+    for (int i = 0; i < lista->tamanho; i++) {
         if (lista->elementos[i] == valor) {
             return i;
         }
-        i++;
     }
     return -1;
 }
 
-// Remover
-void remover() {
+// Remover elemento
+void remover_elemento(lista_ordenada_t* lista, int valor) {
+    int pos = buscar(lista, valor);
+    if (pos == -1) {
+        printf("Elemento não encontrado!\n");
+        return;
+    }
 
+    for (int i = pos; i < lista->tamanho - 1; i++) {
+        lista->elementos[i] = lista->elementos[i + 1];
+    }
+
+    lista->tamanho--;
+    printf("Elemento %d removido com sucesso!\n", valor);
 }
-// Vazia
-// Cheia
-// destruir
+
+// Verifica se a lista está cheia
+bool lista_cheia(lista_ordenada_t* lista) {
+    return lista->tamanho >= lista->capacidade;
+}
+
+// Verifica se a lista está vazia
+bool lista_vazia(lista_ordenada_t* lista) {
+    return lista->tamanho == 0;
+}
+
+// Exibir todos os elementos
+void exibir_lista(lista_ordenada_t* lista) {
+    printf("[");
+    for (int i = 0; i < lista->tamanho; i++) {
+        printf("%d", lista->elementos[i]);
+        if (i < lista->tamanho - 1)
+            printf(", ");
+    }
+    printf("]\n");
+}
+
+// Destruir lista e liberar memória
+void destruir_lista(lista_ordenada_t* lista) {
+    if (lista != NULL) {
+        if (lista->elementos != NULL) {
+            free(lista->elementos);
+        }
+        free(lista);
+    }
+}

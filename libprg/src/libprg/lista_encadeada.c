@@ -2,33 +2,94 @@
 // Created by wander on 25/09/2025.
 //
 #include <stdlib.h>
-
 #include "stdbool.h"
+#include "libprg/libprg.h"
 
 
-typedef struct no {
-    int valor;
-    struct no* proximo;
-}no_t;
-
-no_t* criar_lista_encadeada(int valor) {
-    no_t* no = (no_t*) malloc(sizeof(no_t));
-    no->valor = valor;
-    no->proximo = NULL;
-    return no;
+ListaEncadeada* criar_lista_encadeada() {
+    ListaEncadeada* lista = malloc(sizeof(ListaEncadeada));
+    lista->inicio = NULL;
+    lista->tamanho = 0;
+    return lista;
 }
 
-void adicionar_circular(no_t** inicio, int valor) {
-    no_t* novo_no = criar_lista_encadeada(valor);
-    novo_no->proximo = *inicio;
-    *inicio = novo_no;
+void inserir_no_inicio(ListaEncadeada* lista, int valor) {
+    No* novo = malloc(sizeof(No));
+    novo->valor = valor;
+    novo->proximo = lista->inicio;
+    lista->inicio = novo;
+    lista->tamanho++;
 }
 
+void inserir_no_fim(ListaEncadeada* lista, int valor) {
+    No* novo = malloc(sizeof(No));
+    novo->valor = valor;
+    novo->proximo = NULL;
 
+    if (lista->inicio == NULL) {
+        lista->inicio = novo;
+    } else {
+        No* atual = lista->inicio;
+        while (atual->proximo != NULL) {
+            atual = atual->proximo;
+        }
+        atual->proximo = novo;
+    }
+    lista->tamanho++;
+}
 
-// no main
-// int main () {
-    // no_t*
-    // adicionar(&lista_encadeada, 3);
-    // return 0;
-// }
+bool remover_elemento(ListaEncadeada* lista, int valor) {
+    if (lista->inicio == NULL) return false;
+
+    No* atual = lista->inicio;
+    No* anterior = NULL;
+
+    while (atual != NULL && atual->valor != valor) {
+        anterior = atual;
+        atual = atual->proximo;
+    }
+
+    if (atual == NULL) return false; // não encontrado
+
+    if (anterior == NULL) {
+        lista->inicio = atual->proximo;
+    } else {
+        anterior->proximo = atual->proximo;
+    }
+
+    free(atual);
+    lista->tamanho--;
+    return true;
+}
+
+No* buscar_elemento(ListaEncadeada* lista, int valor) {
+    No* atual = lista->inicio;
+    while (atual != NULL) {
+        if (atual->valor == valor) {
+            return atual;
+        }
+        atual = atual->proximo;
+    }
+    return NULL;
+}
+
+void exibir_lista(ListaEncadeada* lista) {
+    No* atual = lista->inicio;
+    printf("[");
+    while (atual != NULL) {
+        printf("%d", atual->valor);
+        if (atual->proximo != NULL) printf(", ");
+        atual = atual->proximo;
+    }
+    printf("]\n");
+}
+
+void destruir_lista_encadeada(ListaEncadeada* lista) {
+    No* atual = lista->inicio;
+    while (atual != NULL) {
+        No* temp = atual;
+        atual = atual->proximo;
+        free(temp);
+    }
+    free(lista);
+}

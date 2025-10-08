@@ -68,11 +68,46 @@ int* elementos_lista_linear(lista_linear_t* lista_linear);
 void imprimir_lista_linear(lista_linear_t* lista_linear);
 
 // ---------- Lista Ordenada ----------
-typedef struct lista_ordenada lista_ordenada_t;
+
+typedef struct {
+    int *elementos;
+    int capacidade;
+    int tamanho;
+    bool ordenada;
+} lista_ordenada_t;
+
+// ====== DECLARAÇÃO DAS FUNÇÕES ======
+lista_ordenada_t* criar_lista_ordenada(int capacidade, bool ordenada);
+void inserir(lista_ordenada_t* lista, int valor);
+void inserir_ordenada(lista_ordenada_t* lista, int valor);
+void inserir_nao_ordenada(lista_ordenada_t* lista, int valor);
+int buscar(lista_ordenada_t* lista, int valor);
+bool lista_vazia(lista_ordenada_t* lista);
+bool lista_cheia(lista_ordenada_t* lista);
+void remover_elemento(lista_ordenada_t* lista, int valor);
+void destruir_lista(lista_ordenada_t* lista);
+void exibir_lista(lista_ordenada_t* lista);
 
 
 // ---------- Lista Encadeada ----------
-typedef struct no no_t;
-no_t* crar_lista_encadeada(int valor);
+
+typedef struct no {
+    int valor;
+    struct no* proximo;
+} No;
+
+typedef struct {
+    No* inicio;
+    int tamanho;
+} ListaEncadeada;
+
+ListaEncadeada* criar_lista_encadeada();
+void inserir_no_inicio(ListaEncadeada* lista, int valor);
+void inserir_no_fim(ListaEncadeada* lista, int valor);
+bool remover_elemento(ListaEncadeada* lista, int valor);
+No* buscar_elemento(ListaEncadeada* lista, int valor);
+void exibir_lista(ListaEncadeada* lista);
+void destruir_lista_encadeada(ListaEncadeada* lista);
+
 
 #endif
