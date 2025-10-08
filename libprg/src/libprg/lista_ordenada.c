@@ -3,6 +3,11 @@
 #include <stdbool.h>
 #include "libprg/libprg.h"
 
+// ====== DECLARAÇÕES (PROTÓTIPOS) CORRIGIDAS ======
+// Devem ser static para combinar com a implementação
+static void inserir_ordenada(lista_ordenada_t* lista, int valor);
+static void inserir_nao_ordenada(lista_ordenada_t* lista, int valor);
+
 
 // Criar lista
 lista_ordenada_t* criar_lista_ordenada(int capacidade, bool ordenada) {
@@ -13,10 +18,6 @@ lista_ordenada_t* criar_lista_ordenada(int capacidade, bool ordenada) {
     lista->ordenada = ordenada;
     return lista;
 }
-
-void inserir_ordenada(lista_ordenada_t * lista, int valor);
-
-void inserir_nao_ordenada(lista_ordenada_t * lista, int valor);
 
 // Inserir elemento (decide se é ordenada ou não)
 void inserir(lista_ordenada_t* lista, int valor) {
@@ -33,13 +34,13 @@ void inserir(lista_ordenada_t* lista, int valor) {
 }
 
 // Inserção não ordenada (coloca no final)
-void inserir_nao_ordenada(lista_ordenada_t* lista, int valor) {
+static void inserir_nao_ordenada(lista_ordenada_t* lista, int valor) {
     lista->elementos[lista->tamanho] = valor;
     lista->tamanho++;
 }
 
 // Inserção ordenada (mantém ordem crescente)
-void inserir_ordenada(lista_ordenada_t* lista, int valor) {
+static void inserir_ordenada(lista_ordenada_t* lista, int valor) {
     int i = lista->tamanho - 1;
 
     // desloca elementos maiores que "valor" para a direita
@@ -52,6 +53,7 @@ void inserir_ordenada(lista_ordenada_t* lista, int valor) {
     lista->elementos[i + 1] = valor;
     lista->tamanho++;
 }
+// <-- AQUELE CÓDIGO EXTRA FOI REMOVIDO DAQUI
 
 // Buscar elemento
 int buscar(lista_ordenada_t* lista, int valor) {
@@ -68,17 +70,16 @@ bool remover_elemento_ord(lista_ordenada_t* lista, int valor) {
     int pos = buscar(lista, valor);
     if (pos == -1) {
         printf("Elemento não encontrado!\n");
-        return false; // CORREÇÃO: Retorna 'false' quando não encontra
+        return false;
     }
 
-    // Desloca os elementos
     for (int i = pos; i < lista->tamanho - 1; i++) {
         lista->elementos[i] = lista->elementos[i + 1];
     }
 
     lista->tamanho--;
     printf("Elemento %d removido com sucesso!\n", valor);
-    return true; // CORREÇÃO: Retorna 'true' no sucesso
+    return true;
 }
 
 // Verifica se a lista está cheia
@@ -102,7 +103,7 @@ void exibir_lista_ord(lista_ordenada_t* lista) {
     printf("]\n");
 }
 
-void destruir_lista_ordenada(lista_ordenada_t* lista) { // Renomeada
+void destruir_lista_ordenada(lista_ordenada_t* lista) {
     if (lista != NULL) {
         if (lista->elementos != NULL) {
             free(lista->elementos);
