@@ -16,7 +16,6 @@ add_library(libprg
         src/libprg/lista_ordenada.c
         src/libprg/lista_encadeada.c
         src/libprg/lista_linear.c)
-target_sources(libprg PUBLIC ${SOURCES})
 target_include_directories(libprg PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src/include)
 
 target_compile_features(libprg PUBLIC c_std_17)
